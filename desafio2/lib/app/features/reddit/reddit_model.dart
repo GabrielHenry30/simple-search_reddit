@@ -1,9 +1,9 @@
 class Response {
-  final int id;
-  final String theme;
+  // final int id;
+  final String title;
 
   Response({
-    required this.id,
-    required this.theme,
+    // required this.id,
+    required this.title,
   });
 }

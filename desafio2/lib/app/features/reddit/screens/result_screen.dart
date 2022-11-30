@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_trade2/app/features/reddit/reddit_controller.dart';
 import 'package:flutter_trade2/app/features/reddit/reddit_model.dart';
@@ -16,6 +17,7 @@ class ListRedditView extends StatefulWidget {
 class _ListRedditViewState extends ModularState<ListRedditView, RedditController> {
   @override
   Widget build(BuildContext context) {
+    final response = Provider.of<RedditController>(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 95, 192, 221),
@@ -26,12 +28,14 @@ class _ListRedditViewState extends ModularState<ListRedditView, RedditController
         ),
         elevation: 0,
       ),
-      body: ListView.builder(
-        itemBuilder: (BuildContext context, int index) {
-          return ListTile(
-            title: Text(widget.theme),
-          );
-        },
+      body: Observer(
+        builder: ((_) => Column(
+              children: [
+                ...response.listTitleResponse(widget.theme).map((e) {
+                  return Text(e!);
+                }).toList(),
+              ],
+            )),
       ),
     );
   }

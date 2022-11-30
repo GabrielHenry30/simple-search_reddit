@@ -10,10 +10,7 @@ class RedditModule extends Module {
   static const listCompleteRoute = '$route$listRoute';
 
   @override
-  final List<Bind> binds = [
-    Bind.singleton((i) => RedditService()),
-    Bind.singleton((i) => RedditController(i())),
-  ];
+  final List<Bind> binds = [];
 
   @override
   final List<ModularRoute> routes = [

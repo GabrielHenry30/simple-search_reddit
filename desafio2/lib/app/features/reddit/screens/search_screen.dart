@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_trade2/app/features/reddit/reddit_controller.dart';
 import 'package:flutter_trade2/app/features/reddit/reddit_module.dart';
+import 'package:provider/provider.dart';
 
 class searchScreen extends StatefulWidget {
   const searchScreen({super.key});
@@ -15,7 +16,7 @@ class _searchScreenState extends ModularState<searchScreen, RedditController> {
 
   @override
   Widget build(BuildContext context) {
-    print(theme);
+    final response = Provider.of<RedditController>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -37,7 +38,10 @@ class _searchScreenState extends ModularState<searchScreen, RedditController> {
               height: 10,
             ),
             ElevatedButton(
-              onPressed: () => Modular.to.navigate(RedditModule.listCompleteRoute, arguments: theme),
+              onPressed: (() => {
+                    Modular.to.navigate(RedditModule.listCompleteRoute, arguments: theme),
+                    // response.getHTTP(theme),
+                  }),
               child: const Text('Pesquisar'),
             ),
           ],

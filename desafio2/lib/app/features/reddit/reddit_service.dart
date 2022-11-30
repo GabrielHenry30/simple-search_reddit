@@ -1,10 +1,13 @@
+import 'package:dio/dio.dart';
 import 'package:http/http.dart' as http;
 
-const baseUrl = 'https://www.reddit.com/r/climbing/top.json';
-
 class RedditService {
-  static Future getReddit() async {
-    var url = Uri.parse(baseUrl);
-    return await http.get(url);
+  void getHTTP(String theme) async {
+    try {
+      var response = await Dio().get('https://www.reddit.com/r/$theme/top.json');
+      print(response);
+    } catch (e) {
+      print(e);
+    }
   }
 }
