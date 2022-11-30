@@ -1,48 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_trade2/app_module.dart';
+import 'package:flutter_trade2/modules/reddit_module/features/controller/reddit_controller.dart';
+import 'package:flutter_trade2/modules/reddit_module/reddit_module.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+void main() => runApp(ModularApp(module: AppModule(), child: MyApp()));
 
 class MyApp extends StatefulWidget {
-  const MyApp({super.key});
-
   @override
   State<MyApp> createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
-  String theme = '';
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          backgroundColor: const Color.fromARGB(255, 111, 110, 110),
-          title: const Text('API REST'),
-        ),
-        body: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                TextField(
-                  onChanged: (value) => theme = value,
-                  decoration: const InputDecoration(labelText: 'Insira o tema', border: OutlineInputBorder()),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                ElevatedButton(
-                  onPressed: () {},
-                  child: const Text('Pesquisar'),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
+    return MultiProvider(
+      providers: [
+        Provider<RedditController>(create: (_) => RedditController()),
+      ],
+      child: const MaterialApp(
+        initialRoute: RedditModule.route,
+      ).modular(),
     );
   }
 }
