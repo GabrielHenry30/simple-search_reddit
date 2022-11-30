@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:flutter_trade2/modules/reddit_module/reddit_module.dart';
 
 class ListRedditView extends StatefulWidget {
   const ListRedditView({super.key});
@@ -13,33 +15,15 @@ class _ListRedditViewState extends State<ListRedditView> {
     String theme = '';
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: const Color.fromARGB(255, 111, 110, 110),
-          title: const Text('API REST'),
-          leading: GestureDetector(
-              // onTap: () => Modular.to.navigate(LimitModule.route),
-              ),
+          backgroundColor: Color.fromARGB(255, 95, 192, 221),
+          title: const Text('Reddit API'),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back_ios_new, color: Colors.black),
+            onPressed: () => Modular.to.navigate(RedditModule.route),
+          ),
+          elevation: 0,
         ),
-        body: listReddit()
-        // Padding(
-        //   padding: const EdgeInsets.all(20.0),
-        //   child: Column(
-        //     mainAxisAlignment: MainAxisAlignment.start,
-        //     children: [
-        //       TextField(
-        //         onChanged: (value) => theme = value,
-        //         decoration: const InputDecoration(labelText: 'Insira o tema', border: OutlineInputBorder()),
-        //       ),
-        //       const SizedBox(
-        //         height: 10,
-        //       ),
-        //       ElevatedButton(
-        //         onPressed: () {},
-        //         child: const Text('Pesquisar'),
-        //       ),
-        //     ],
-        //   ),
-        // ),
-        );
+        body: listReddit());
   }
 
   listReddit() {

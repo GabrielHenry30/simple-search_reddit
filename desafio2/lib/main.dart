@@ -5,23 +5,15 @@ import 'package:flutter_trade2/modules/reddit_module/features/controller/reddit_
 import 'package:flutter_trade2/modules/reddit_module/reddit_module.dart';
 import 'package:provider/provider.dart';
 
-void main() => runApp(ModularApp(module: AppModule(), child: MyApp()));
+void main() => runApp(ModularApp(module: RedditModule(), child: AppWidget()));
 
-class MyApp extends StatefulWidget {
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
+class AppWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        Provider<RedditController>(create: (_) => RedditController()),
-      ],
-      child: const MaterialApp(
-        initialRoute: RedditModule.route,
-      ).modular(),
-    );
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      // supportedLocales: [Locale('pt', 'BR')],
+      initialRoute: RedditModule.listCompleteRoute,
+    ).modular();
   }
 }
