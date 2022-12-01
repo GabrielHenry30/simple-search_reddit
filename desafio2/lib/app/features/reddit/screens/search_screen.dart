@@ -15,11 +15,11 @@ class searchScreen extends StatefulWidget {
 class _searchScreenState extends ModularState<searchScreen, RedditController> {
   @override
   Widget build(BuildContext context) {
-    String theme = '';
     final response = Provider.of<RedditController>(context);
+
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 95, 192, 221),
+        backgroundColor: const Color.fromARGB(255, 95, 192, 221),
         title: const Text('Reddit API'),
         elevation: 0,
       ),
@@ -30,9 +30,9 @@ class _searchScreenState extends ModularState<searchScreen, RedditController> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   TextField(
-                    onChanged: (value) => {theme = value},
+                    onChanged: (value) => {response.theme = value},
                     onSubmitted: (_) => {
-                      {Modular.to.popAndPushNamed(RedditModule.listCompleteRoute, arguments: theme)}
+                      {Modular.to.popAndPushNamed(RedditModule.listCompleteRoute, arguments: response.theme)}
                     },
                     decoration: const InputDecoration(labelText: 'Insira o tema', border: OutlineInputBorder()),
                   ),
@@ -40,7 +40,7 @@ class _searchScreenState extends ModularState<searchScreen, RedditController> {
                     height: 10,
                   ),
                   ElevatedButton(
-                    onPressed: theme.isNotEmpty ? null : (() => Modular.to.popAndPushNamed(RedditModule.listCompleteRoute, arguments: theme)),
+                    onPressed: (() => Modular.to.popAndPushNamed(RedditModule.listCompleteRoute, arguments: response.theme)),
                     child: const Text('Pesquisar'),
                   ),
                 ],
