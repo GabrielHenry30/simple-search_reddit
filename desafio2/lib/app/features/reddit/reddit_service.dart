@@ -10,4 +10,13 @@ class RedditService {
       print(e);
     }
   }
+
+  Future<Object> getHTTP2(String theme) async {
+    try {
+      var response = await Dio().get('https://www.reddit.com/r/$theme/top.json');
+      return response;
+    } catch (e) {
+      return e;
+    }
+  }
 }

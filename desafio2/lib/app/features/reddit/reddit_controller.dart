@@ -17,29 +17,31 @@ abstract class _RedditController with Store {
   @observable
   List<String> titles = [];
 
-  @action
-  void getHTTPprint(String theme) async {
-    try {
-      var response = await Dio().get('https://www.reddit.com/r/$theme/top.json');
-      responseFilter = response.data['data']['children'];
+  @observable
+  String theme = '';
 
+  @action
+  Future<List<String>> getReddit(String theme) async {
+    var teste = await _redditService.getHTTP2(theme);
+    try {
+      var resp = await Dio().get('https://www.reddit.com/r/$theme/top.json');
+      print(teste);
+
+      // print(resp);
+      responseFilter = await resp.data['data']['children'];
       for (int i = 0; i < responseFilter.length; i++) {
-        // print(responseFilter[i]['data']['title']);
+        titles.add(responseFilter[i]['data']['title']);
       }
+
+      return titles;
     } catch (e) {
-      print(e);
+      // print(e);
+      return titles;
     }
   }
 
   @action
-  List<String?> listTitleResponse(String theme) {
-    getHTTPprint(theme);
-
-    for (int i = 0; i < responseFilter.length; i++) {
-      titles.add(responseFilter[i]['data']['title']);
-    }
-    // titles = response;
-
-    return titles;
+  void cleannerTitles() {
+    titles = [];
   }
 }
