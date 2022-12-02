@@ -1,8 +1,8 @@
-class Response {
+class ModelResponse {
   // final int id;
   final String title;
 
-  Response({
+  ModelResponse({
     // required this.id,
     required this.title,
   });
