@@ -22,14 +22,15 @@ abstract class _RedditController with Store {
 
   @action
   Future<Object> getReddit(String theme) async {
-    var teste = await _redditService.getHTTP(theme);
+    var resp = await _redditService.getHTTP(theme);
+    // if(resp.)
+
+    if (resp?.data['reason'] == 'private') {
+      return resp?.data['reason'];
+    }
 
     try {
-      var resp = await Dio().get('https://www.reddit.com/r/$theme/top.json');
-
-      // print(resp);
-
-      responseFilter = await resp.data['data']['children'];
+      responseFilter = await resp?.data['data']['children'];
       for (int i = 0; i < responseFilter.length; i++) {
         titles.add(responseFilter[i]['data']['title']);
       }
@@ -41,7 +42,7 @@ abstract class _RedditController with Store {
   }
 
   @action
-  void cleannerTitles() {
-    titles = [];
+  void listCleanner() {
+    titles.clear();
   }
 }

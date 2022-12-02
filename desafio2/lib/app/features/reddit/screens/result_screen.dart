@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_trade2/app/features/reddit/reddit_controller.dart';
 import 'package:flutter_trade2/app/features/reddit/reddit_module.dart';
@@ -16,6 +17,7 @@ class _ListRedditViewState extends ModularState<ListRedditView, RedditController
   @override
   Widget build(BuildContext context) {
     final response = Provider.of<RedditController>(context);
+    List<String> titles = [];
     return Scaffold(
         appBar: AppBar(
           backgroundColor: const Color.fromARGB(255, 95, 192, 221),
@@ -23,35 +25,48 @@ class _ListRedditViewState extends ModularState<ListRedditView, RedditController
           leading: IconButton(
               icon: const Icon(Icons.arrow_back_ios_new, color: Colors.white),
               onPressed: () => {
-                    response.cleannerTitles(),
+                    response.listCleanner(),
                     Modular.to.popAndPushNamed(RedditModule.route),
                   }),
           elevation: 0,
         ),
-        body: FutureBuilder(
-          future: response.getReddit(widget.theme),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              return Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: ListView.builder(
-                  itemCount: response.titles.length,
-                  itemBuilder: (context, index) {
-                    return ListTile(
-                      title: const Text('Título: '),
-                      subtitle: Text(response.titles[index]),
+        body: Observer(
+          builder: ((_) => FutureBuilder(
+                future: response.getReddit(widget.theme),
+                builder: (context, snapshot) {
+                  if (snapshot.data == 'private') {
+                    return Align(
+                      alignment: Alignment.center,
+                      child: Column(
+                        // ignore: prefer_const_literals_to_create_immutables
+                        children: [
+                          const Text(
+                            'Ops, esse tema é privado.',
+                            style: TextStyle(
+                              fontSize: 20,
+                            ),
+                          ),
+                        ],
+                      ),
                     );
-                  },
-                ),
-              );
-            }
-            if (snapshot.hasError) {
-              return const Center(
-                child: Text('Erro.'),
-              );
-            }
-            return const Center(child: CircularProgressIndicator());
-          },
+                  }
+                  if (snapshot.hasData) {
+                    return Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: ListView.builder(
+                        itemCount: response.titles.length,
+                        itemBuilder: (context, index) {
+                          return ListTile(
+                            // title: const Text('Título: '),
+                            title: Text(response.titles[index]),
+                          );
+                        },
+                      ),
+                    );
+                  }
+                  return const Center(child: CircularProgressIndicator());
+                },
+              )),
         ));
   }
 }
