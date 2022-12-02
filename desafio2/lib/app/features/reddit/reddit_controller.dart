@@ -20,10 +20,12 @@ abstract class _RedditController with Store {
   @action
   Future<Object> getReddit(String theme) async {
     var resp = await _redditService.getHTTP(theme);
-    // if(resp.)
 
-    if (resp?.data['reason'] == 'private') {
-      return resp?.data['reason'];
+    if (resp?.data['error'] == 404) {
+      return resp?.data['error'];
+    }
+    if (resp?.data['error'] == 403) {
+      return resp?.data['error'];
     }
 
     try {

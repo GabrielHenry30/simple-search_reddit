@@ -19,54 +19,82 @@ class _ListRedditViewState extends ModularState<ListRedditView, RedditController
     final response = Provider.of<RedditController>(context);
     List<String> titles = [];
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: const Color.fromARGB(255, 95, 192, 221),
-          title: const Text('Reddit API'),
-          leading: IconButton(
-              icon: const Icon(Icons.arrow_back_ios_new, color: Colors.white),
-              onPressed: () => {
-                    response.listCleanner(),
-                    Modular.to.popAndPushNamed(RedditModule.route),
-                  }),
-          elevation: 0,
-        ),
-        body: Observer(
-          builder: ((_) => FutureBuilder(
-                future: response.getReddit(widget.theme),
-                builder: (context, snapshot) {
-                  if (snapshot.data == 'private') {
-                    return Align(
-                      alignment: Alignment.center,
-                      child: Column(
-                        // ignore: prefer_const_literals_to_create_immutables
-                        children: [
-                          const Text(
-                            'Ops, esse tema é privado.',
-                            style: TextStyle(
-                              fontSize: 20,
-                            ),
-                          ),
-                        ],
+      appBar: AppBar(
+        backgroundColor: const Color.fromARGB(255, 95, 192, 221),
+        title: const Text('Reddit API'),
+        leading: IconButton(
+            icon: const Icon(Icons.arrow_back_ios_new, color: Colors.white),
+            onPressed: () => {
+                  response.listCleanner(),
+                  Modular.to.popAndPushNamed(RedditModule.route),
+                }),
+        elevation: 0,
+      ),
+      body: Observer(
+        builder: ((_) => FutureBuilder(
+              future: response.getReddit(widget.theme),
+              builder: (context, snapshot) {
+                if (snapshot.data == 403) {
+                  return const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Center(
+                      heightFactor: 1.5,
+                      child: Text(
+                        'Ops, você pesquisou uma comunidade privada.',
+                        style: TextStyle(
+                          fontSize: 20,
+                        ),
                       ),
-                    );
-                  }
-                  if (snapshot.hasData) {
-                    return Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: ListView.builder(
-                        itemCount: response.titles.length,
-                        itemBuilder: (context, index) {
-                          return ListTile(
-                            // title: const Text('Título: '),
-                            title: Text(response.titles[index]),
-                          );
-                        },
+                    ),
+                  );
+                }
+                if (snapshot.data == 404) {
+                  return const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Center(
+                      heightFactor: 1.5,
+                      child: Text(
+                        'Desculpa, não há comunidades no Reddit com esse nome.',
+                        style: TextStyle(
+                          fontSize: 20,
+                        ),
                       ),
-                    );
-                  }
+                    ),
+                  );
+                }
+                if (snapshot.hasData) {
+                  return Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: ListView.builder(
+                      itemCount: response.titles.length,
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                          // title: const Text('Título: '),
+                          title: Text(response.titles[index]),
+                        );
+                      },
+                    ),
+                  );
+                }
+                if (!snapshot.hasData) {
                   return const Center(child: CircularProgressIndicator());
-                },
-              )),
-        ));
+                } else {
+                  return const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Center(
+                      heightFactor: 1.5,
+                      child: Text(
+                        'Ops, não encontramos nada sobre esse tema.',
+                        style: TextStyle(
+                          fontSize: 20,
+                        ),
+                      ),
+                    ),
+                  );
+                }
+              },
+            )),
+      ),
+    );
   }
 }
