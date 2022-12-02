@@ -1,6 +1,4 @@
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:flutter_trade2/app/features/reddit/reddit_controller.dart';
-import 'package:flutter_trade2/app/features/reddit/reddit_service.dart';
 import 'package:flutter_trade2/app/features/reddit/screens/result_screen.dart';
 import 'package:flutter_trade2/app/features/reddit/screens/search_screen.dart';
 

@@ -1,6 +1,3 @@
-import 'dart:convert';
-
-import 'package:dio/dio.dart';
 import 'package:flutter_trade2/app/features/reddit/reddit_service.dart';
 import 'package:mobx/mobx.dart';
 
