@@ -14,11 +14,9 @@ abstract class _RedditController with Store {
   @observable
   List<String> titles = [];
 
-  @observable
-  String theme = '';
-
   @action
-  Future<Object> getReddit(String theme) async {
+  getReddit(String theme) async {
+    titles.clear();
     var resp = await _redditService.getHTTP(theme);
 
     if (resp?.data['error'] == 404) {
@@ -37,6 +35,21 @@ abstract class _RedditController with Store {
       return titles;
     } catch (e) {
       return e;
+    }
+  }
+
+  @action
+  getRedditVoid(String theme) async {
+    titles.clear();
+    var resp = await _redditService.getHTTP(theme);
+
+    try {
+      responseFilter = await resp?.data['data']['children'];
+      for (int i = 0; i < responseFilter.length; i++) {
+        titles.add(responseFilter[i]['data']['title']);
+      }
+    } catch (e) {
+      print(e);
     }
   }
 
