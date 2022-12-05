@@ -14,44 +14,26 @@ abstract class _RedditController with Store {
   @observable
   List<String> titles = [];
 
-  @action
-  getReddit(String theme) async {
-    titles.clear();
-    var resp = await _redditService.getHTTP(theme);
-
-    if (resp?.data['error'] == 404) {
-      return resp?.data['error'];
-    }
-    if (resp?.data['error'] == 403) {
-      return resp?.data['error'];
-    }
-
-    try {
-      responseFilter = await resp?.data['data']['children'];
-      for (int i = 0; i < responseFilter.length; i++) {
-        titles.add(responseFilter[i]['data']['title']);
-      }
-
-      return titles;
-    } catch (e) {
-      return e;
-    }
-  }
+  @observable
+  bool isLoading = false;
 
   @action
-  getRedditVoid(String theme) async {
+  Future<void> setReddit(String theme) async {
+    changeIsLoading(true);
     titles.clear();
+
     var resp = await _redditService.getHTTP(theme);
 
-    try {
-      responseFilter = await resp?.data['data']['children'];
-      for (int i = 0; i < responseFilter.length; i++) {
-        titles.add(responseFilter[i]['data']['title']);
-      }
-    } catch (e) {
-      print(e);
+    responseFilter = await resp?.data['data']['children'];
+    for (int i = 0; i < responseFilter.length; i++) {
+      titles.add(responseFilter[i]['data']['title']);
     }
+
+    titles = titles;
+    changeIsLoading(false);
   }
+
+  bool changeIsLoading(bool value) => isLoading = value;
 
   @action
   void listCleanner() {

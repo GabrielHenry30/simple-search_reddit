@@ -18,6 +18,6 @@ class RedditModule extends Module {
   @override
   final List<ModularRoute> routes = [
     ChildRoute(route, child: (_, args) => searchScreen()),
-    ChildRoute(listCompleteRoute, child: (_, args) => ListRedditView()),
+    ChildRoute(listCompleteRoute, child: (_, args) => ListRedditView(args.data)),
   ];
 }

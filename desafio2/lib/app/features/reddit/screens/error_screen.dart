@@ -2,7 +2,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
 class ErrorWidget extends StatefulWidget {
-  const ErrorWidget({super.key});
+  ErrorWidget();
 
   @override
   State<ErrorWidget> createState() => _ErrorWidgetState();
