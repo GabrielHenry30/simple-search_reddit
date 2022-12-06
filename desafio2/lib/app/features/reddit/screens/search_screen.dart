@@ -22,35 +22,38 @@ class _searchScreenState extends ModularState<searchScreen, RedditController> {
         elevation: 0,
       ),
       body: Observer(
-        builder: (_) => Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              TextField(
-                onChanged: (value) {
-                  search = value;
-                },
-                onSubmitted: (_) {
-                  controller.changeIsLoading(true);
-                  controller.setReddit(search);
-                  Modular.to.pushNamed(RedditModule.listCompleteRoute, arguments: search);
-                },
-                decoration: const InputDecoration(labelText: 'Insira o tema', border: OutlineInputBorder()),
+        builder: (_) => controller.isLoading
+            ? const Center(child: CircularProgressIndicator())
+            : Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    TextField(
+                      onChanged: (value) {
+                        search = value;
+                      },
+                      onSubmitted: (_) async {
+                        controller.changeIsLoading(true);
+                        await controller.setReddit(search);
+                        controller.changeIsLoading(false);
+                        Modular.to.pushNamed(RedditModule.listCompleteRoute);
+                      },
+                      decoration: const InputDecoration(labelText: 'Insira o tema', border: OutlineInputBorder()),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    ElevatedButton(
+                      onPressed: (() => {
+                            controller.setReddit(search),
+                            Modular.to.pushNamed(RedditModule.listCompleteRoute),
+                          }),
+                      child: const Text('Pesquisar'),
+                    ),
+                  ],
+                ),
               ),
-              const SizedBox(
-                height: 10,
-              ),
-              ElevatedButton(
-                onPressed: (() => {
-                      controller.setReddit(search),
-                      Modular.to.pushNamed(RedditModule.listCompleteRoute, arguments: search),
-                    }),
-                child: const Text('Pesquisar'),
-              ),
-            ],
-          ),
-        ),
       ),
     );
   }

@@ -4,29 +4,16 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_trade2/app/features/reddit/reddit_controller.dart';
 import 'package:flutter_trade2/app/features/reddit/reddit_module.dart';
 import 'package:flutter_trade2/app/features/reddit/screens/error_screen.dart';
-import 'package:mobx/mobx.dart';
 
 class ListRedditView extends StatefulWidget {
-  String search = '';
-  ListRedditView(this.search);
+  ListRedditView();
 
   @override
   _ListRedditViewState createState() => _ListRedditViewState();
 }
 
-class _ListRedditViewState extends ModularState<ListRedditView, RedditController> {
-  @override
-  void dispose() {
-    print(controller.isLoading);
-    super.dispose();
-  }
-
-  @override
-  void initState() {
-    print(controller.isLoading);
-    super.initState();
-  }
-
+class _ListRedditViewState extends State<ListRedditView> {
+  final controller = Modular.get<RedditController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,19 +28,17 @@ class _ListRedditViewState extends ModularState<ListRedditView, RedditController
         elevation: 0,
       ),
       body: Observer(
-        builder: (_) => controller.isLoading
-            ? const Center(child: CircularProgressIndicator())
-            : controller.titles.isNotEmpty
-                ? Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: ListView.builder(
-                      itemCount: controller.titles.length,
-                      itemBuilder: (context, index) {
-                        return ListTile(title: Text(controller.titles[index]));
-                      },
-                    ),
-                  )
-                : ErrorRedditWidget(controller.error),
+        builder: (_) => controller.titles.isNotEmpty
+            ? Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: ListView.builder(
+                  itemCount: controller.titles.length,
+                  itemBuilder: (context, index) {
+                    return ListTile(title: Text(controller.titles[index]));
+                  },
+                ),
+              )
+            : ErrorRedditWidget(controller.error),
       ),
     );
   }
