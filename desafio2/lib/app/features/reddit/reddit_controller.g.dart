@@ -41,6 +41,22 @@ mixin _$RedditController on _RedditController, Store {
     });
   }
 
+  late final _$errorAtom =
+      Atom(name: '_RedditController.error', context: context);
+
+  @override
+  int get error {
+    _$errorAtom.reportRead();
+    return super.error;
+  }
+
+  @override
+  set error(int value) {
+    _$errorAtom.reportWrite(value, super.error, () {
+      super.error = value;
+    });
+  }
+
   late final _$setRedditAsyncAction =
       AsyncAction('_RedditController.setReddit', context: context);
 
@@ -67,7 +83,8 @@ mixin _$RedditController on _RedditController, Store {
   String toString() {
     return '''
 titles: ${titles},
-isLoading: ${isLoading}
+isLoading: ${isLoading},
+error: ${error}
     ''';
   }
 }

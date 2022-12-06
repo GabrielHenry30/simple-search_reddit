@@ -17,23 +17,41 @@ abstract class _RedditController with Store {
   @observable
   bool isLoading = false;
 
+  @observable
+  int error = 0;
+
   @action
   Future<void> setReddit(String theme) async {
-    changeIsLoading(true);
-    titles.clear();
-
+    List<String> newTitles = [];
+    setError(0);
     var resp = await _redditService.getHTTP(theme);
 
-    responseFilter = await resp?.data['data']['children'];
-    for (int i = 0; i < responseFilter.length; i++) {
-      titles.add(responseFilter[i]['data']['title']);
+    if (resp?.data['error'] == 403) {
+      setError(403);
+      changeIsLoading(false);
+      return;
     }
-
-    titles = titles;
-    changeIsLoading(false);
+    if (resp?.data['error'] == 404) {
+      setError(404);
+      changeIsLoading(false);
+      return;
+    }
+    if (resp?.statusCode == 200) {
+      responseFilter = await resp?.data['data']['children'];
+      for (int i = 0; i < responseFilter.length; i++) {
+        newTitles.add(responseFilter[i]['data']['title']);
+      }
+      titles = newTitles;
+      changeIsLoading(false);
+      return;
+    }
   }
 
   bool changeIsLoading(bool value) => isLoading = value;
+
+  void setError(int erro) {
+    error = erro;
+  }
 
   @action
   void listCleanner() {
