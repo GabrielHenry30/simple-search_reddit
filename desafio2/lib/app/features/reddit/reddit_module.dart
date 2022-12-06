@@ -1,8 +1,9 @@
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:flutter_trade2/app/features/reddit/reddit_controller.dart';
+import 'package:flutter_trade2/app/features/reddit/screens/result/result_controller.dart';
+import 'package:flutter_trade2/app/features/reddit/screens/search/search_controller.dart';
 import 'package:flutter_trade2/app/features/reddit/reddit_service.dart';
-import 'package:flutter_trade2/app/features/reddit/screens/result_screen.dart';
-import 'package:flutter_trade2/app/features/reddit/screens/search_screen.dart';
+import 'package:flutter_trade2/app/features/reddit/screens/result/result_screen.dart';
+import 'package:flutter_trade2/app/features/reddit/screens/search/search_screen.dart';
 
 class RedditModule extends Module {
   static const route = '/';
@@ -12,7 +13,8 @@ class RedditModule extends Module {
   @override
   final List<Bind> binds = [
     Bind.singleton((i) => RedditService()),
-    Bind.singleton((i) => RedditController(i())),
+    Bind.singleton((i) => SearchController(i())),
+    Bind.singleton((i) => ResultController(i())),
   ];
 
   @override
