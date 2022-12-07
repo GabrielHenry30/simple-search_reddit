@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:flutter_trade2/app/features/reddit/screens/result/result_controller.dart';
 import 'package:flutter_trade2/app/features/reddit/screens/search/search_controller.dart';
 import 'package:flutter_trade2/app/features/reddit/reddit_module.dart';
 import 'package:flutter_trade2/app/features/reddit/screens/result/error_screen.dart';
@@ -12,8 +13,7 @@ class ListRedditView extends StatefulWidget {
   _ListRedditViewState createState() => _ListRedditViewState();
 }
 
-class _ListRedditViewState extends State<ListRedditView> {
-  final controller = Modular.get<SearchController>();
+class _ListRedditViewState extends ModularState<ListRedditView, ResultController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +28,7 @@ class _ListRedditViewState extends State<ListRedditView> {
         elevation: 0,
       ),
       body: Observer(
-        builder: (_) => controller.titles.isNotEmpty
+        builder: (_) => controller.titlesIsNotEmpty
             ? Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: ListView.builder(

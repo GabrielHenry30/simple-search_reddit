@@ -9,26 +9,33 @@ part of 'result_controller.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$ResultController on _ResultController, Store {
-  late final _$errorAtom =
-      Atom(name: '_ResultController.error', context: context);
+  Computed<List<String>>? _$titlesComputed;
 
   @override
-  int get error {
-    _$errorAtom.reportRead();
-    return super.error;
-  }
+  List<String> get titles =>
+      (_$titlesComputed ??= Computed<List<String>>(() => super.titles,
+              name: '_ResultController.titles'))
+          .value;
+  Computed<int>? _$errorComputed;
 
   @override
-  set error(int value) {
-    _$errorAtom.reportWrite(value, super.error, () {
-      super.error = value;
-    });
-  }
+  int get error => (_$errorComputed ??=
+          Computed<int>(() => super.error, name: '_ResultController.error'))
+      .value;
+  Computed<bool>? _$titlesIsNotEmptyComputed;
+
+  @override
+  bool get titlesIsNotEmpty => (_$titlesIsNotEmptyComputed ??= Computed<bool>(
+          () => super.titlesIsNotEmpty,
+          name: '_ResultController.titlesIsNotEmpty'))
+      .value;
 
   @override
   String toString() {
     return '''
-error: ${error}
+titles: ${titles},
+error: ${error},
+titlesIsNotEmpty: ${titlesIsNotEmpty}
     ''';
   }
 }

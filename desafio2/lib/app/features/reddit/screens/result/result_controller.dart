@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_trade2/app/features/reddit/screens/search/search_controller.dart';
 import 'package:mobx/mobx.dart';
 
@@ -7,13 +8,15 @@ class ResultController = _ResultController with _$ResultController;
 
 abstract class _ResultController with Store {
   final SearchController _searchController;
-  List<dynamic> responseFilter = [];
 
   _ResultController(this._searchController);
 
-  @observable
-  // List<String> titles = _searchController.titles;
+  @computed
+  List<String> get titles => _searchController.titles;
 
-  @observable
-  int error = 0;
+  @computed
+  int get error => _searchController.error;
+
+  @computed
+  bool get titlesIsNotEmpty => _searchController.titles.isNotEmpty;
 }
