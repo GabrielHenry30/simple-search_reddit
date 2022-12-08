@@ -12,7 +12,6 @@ class ErrorRedditWidget extends StatefulWidget {
 class _ErrorRedditWidgetState extends State<ErrorRedditWidget> {
   @override
   Widget build(BuildContext context) {
-    print(widget.error);
     return Padding(
       padding: const EdgeInsets.all(20),
       child: Align(

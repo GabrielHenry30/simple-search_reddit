@@ -41,7 +41,7 @@ abstract class _SearchController with Store {
         changeIsLoading(false);
         return;
       }
-
+      titles.clear();
       setError(404);
       changeIsLoading(false);
       return;

@@ -3,6 +3,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_trade2/app/features/reddit/screens/search/search_controller.dart';
 import 'package:flutter_trade2/app/features/reddit/reddit_module.dart';
+import 'package:flutter/services.dart';
 
 class searchScreen extends StatefulWidget {
   const searchScreen({super.key});
@@ -30,6 +31,7 @@ class _searchScreenState extends ModularState<searchScreen, SearchController> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     TextField(
+                      inputFormatters: [FilteringTextInputFormatter.allow(RegExp("[a-zA-Z0-9]"))],
                       onChanged: (value) {
                         search = value;
                       },

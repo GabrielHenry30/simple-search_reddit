@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_trade2/app/features/reddit/screens/result/result_controller.dart';
-import 'package:flutter_trade2/app/features/reddit/screens/search/search_controller.dart';
 import 'package:flutter_trade2/app/features/reddit/reddit_module.dart';
 import 'package:flutter_trade2/app/features/reddit/screens/result/error_screen.dart';
 
