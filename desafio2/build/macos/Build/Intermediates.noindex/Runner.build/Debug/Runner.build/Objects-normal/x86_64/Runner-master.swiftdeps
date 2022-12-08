@@ -1,8 +1,8 @@
 version: "Apple Swift version 5.5 (swiftlang-1300.0.31.1 clang-1300.0.29.1)"
 options: "9a1a92567da5ba281853eeb8aa848932366c22d4c906cd6a3183548b7eafb970"
-build_start_time: [1670497830, 891003131]
-build_end_time: [1670497843, 392004013]
+build_start_time: [1670522461, 230370044]
+build_end_time: [1670522468, 15494823]
 inputs:
-  "/Users/usermaitha/code/trademaster-desafio2/desafio2/macos/Flutter/GeneratedPluginRegistrant.swift": [1670497785, 24586677]
+  "/Users/usermaitha/code/trademaster-desafio2/desafio2/macos/Flutter/GeneratedPluginRegistrant.swift": [1670522396, 607398986]
   "/Users/usermaitha/code/trademaster-desafio2/desafio2/macos/Runner/AppDelegate.swift": [1668016569, 0]
   "/Users/usermaitha/code/trademaster-desafio2/desafio2/macos/Runner/MainFlutterWindow.swift": [1668016569, 0]

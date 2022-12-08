@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_trade2/app/features/reddit/screens/result/result_controller.dart';
 import 'package:flutter_trade2/app/features/reddit/screens/search/search_controller.dart';
@@ -12,7 +13,7 @@ class RedditModule extends Module {
 
   @override
   final List<Bind> binds = [
-    Bind.singleton((i) => RedditService()),
+    Bind.singleton((i) => RedditService(Dio())),
     Bind.singleton((i) => SearchController(i())),
     Bind.singleton((i) => ResultController(i())),
   ];
