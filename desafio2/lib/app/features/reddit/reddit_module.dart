@@ -2,7 +2,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_trade2/app/features/reddit/screens/result/result_controller.dart';
 import 'package:flutter_trade2/app/features/reddit/screens/search/search_controller.dart';
 import 'package:flutter_trade2/app/features/reddit/reddit_service.dart';
-import 'package:flutter_trade2/app/features/reddit/screens/result/result_screen.dart';
+import 'package:flutter_trade2/app/features/reddit/screens/result/components/result_screen.dart';
 import 'package:flutter_trade2/app/features/reddit/screens/search/search_screen.dart';
 
 class RedditModule extends Module {

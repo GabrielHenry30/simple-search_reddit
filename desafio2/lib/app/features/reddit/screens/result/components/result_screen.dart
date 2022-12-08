@@ -3,7 +3,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_trade2/app/features/reddit/screens/result/result_controller.dart';
 import 'package:flutter_trade2/app/features/reddit/reddit_module.dart';
-import 'package:flutter_trade2/app/features/reddit/screens/result/error_screen.dart';
+import 'package:flutter_trade2/app/features/reddit/screens/result/components/error_screen.dart';
 
 class ListRedditView extends StatefulWidget {
   ListRedditView();
