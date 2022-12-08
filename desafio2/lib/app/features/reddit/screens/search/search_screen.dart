@@ -15,7 +15,6 @@ class searchScreen extends StatefulWidget {
 class _searchScreenState extends ModularState<searchScreen, SearchController> {
   @override
   Widget build(BuildContext context) {
-    String search = '';
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 95, 192, 221),
@@ -33,24 +32,28 @@ class _searchScreenState extends ModularState<searchScreen, SearchController> {
                     TextField(
                       inputFormatters: [FilteringTextInputFormatter.allow(RegExp("[a-zA-Z0-9]"))],
                       onChanged: (value) {
-                        search = value;
+                        controller.search = value;
                       },
-                      onSubmitted: (_) async {
-                        controller.changeIsLoading(true);
-                        await controller.setReddit(search);
-                        controller.changeIsLoading(false);
-                        Modular.to.pushNamed(RedditModule.listCompleteRoute);
-                      },
+                      onSubmitted: controller.search.isNotEmpty
+                          ? (_) async {
+                              controller.changeIsLoading(true);
+                              await controller.setReddit(controller.search);
+                              controller.changeIsLoading(false);
+                              Modular.to.pushNamed(RedditModule.listCompleteRoute);
+                            }
+                          : null,
                       decoration: const InputDecoration(labelText: 'Insira o tema', border: OutlineInputBorder()),
                     ),
                     const SizedBox(
                       height: 10,
                     ),
                     ElevatedButton(
-                      onPressed: (() => {
-                            controller.setReddit(search),
-                            Modular.to.pushNamed(RedditModule.listCompleteRoute),
-                          }),
+                      onPressed: controller.search.isNotEmpty
+                          ? (() => {
+                                controller.setReddit(controller.search),
+                                Modular.to.pushNamed(RedditModule.listCompleteRoute),
+                              })
+                          : null,
                       child: const Text('Pesquisar'),
                     ),
                   ],

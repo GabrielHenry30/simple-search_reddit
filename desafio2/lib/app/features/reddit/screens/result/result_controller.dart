@@ -19,4 +19,9 @@ abstract class _ResultController with Store {
 
   @computed
   bool get titlesIsNotEmpty => _searchController.titles.isNotEmpty;
+
+  @action
+  void setSearchEmpty() {
+    _searchController.search = '';
+  }
 }

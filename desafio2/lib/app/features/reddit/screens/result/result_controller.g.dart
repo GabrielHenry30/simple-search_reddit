@@ -30,6 +30,20 @@ mixin _$ResultController on _ResultController, Store {
           name: '_ResultController.titlesIsNotEmpty'))
       .value;
 
+  late final _$_ResultControllerActionController =
+      ActionController(name: '_ResultController', context: context);
+
+  @override
+  void setSearchEmpty() {
+    final _$actionInfo = _$_ResultControllerActionController.startAction(
+        name: '_ResultController.setSearchEmpty');
+    try {
+      return super.setSearchEmpty();
+    } finally {
+      _$_ResultControllerActionController.endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''

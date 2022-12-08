@@ -12,6 +12,9 @@ abstract class _SearchController with Store {
   _SearchController(this._redditService);
 
   @observable
+  String search = '';
+
+  @observable
   List<String> titles = [];
 
   @observable

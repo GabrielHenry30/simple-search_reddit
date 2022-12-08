@@ -22,6 +22,7 @@ class _ListRedditViewState extends ModularState<ListRedditView, ResultController
         leading: IconButton(
             icon: const Icon(Icons.arrow_back_ios_new, color: Colors.white),
             onPressed: () => {
+                  controller.setSearchEmpty(),
                   Modular.to.pop(RedditModule.route),
                 }),
         elevation: 0,
